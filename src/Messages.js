@@ -13,10 +13,20 @@ class Content extends Component {
 		messages: []
 	}
 	// Lifecycle
-	componentWillMount() {
-		axios.get(`${process.env.REACT_APP_API}/messages`).then(res => {
-			this.setState({ messages: res.data })
-		})
+	componentWillReceiveProps = props => {
+		if (props.selected)
+			axios
+				.get(
+					`${process.env.REACT_APP_API}/messages?channel=${props.selected}`,
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem('token')}`
+						}
+					}
+				)
+				.then(res => {
+					this.setState({ messages: res.data })
+				})
 	}
 	// Methods
 	changeText = e => {

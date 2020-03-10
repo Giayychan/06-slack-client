@@ -10,7 +10,7 @@ class Login extends React.Component {
 	login = e => {
 		e.preventDefault()
 		if (this.state.email === '' || this.state.password === '') {
-			this.setState({ error: 'Please put Email and Password!' })
+			this.setState({ error: 'All fields are required' })
 		} else {
 			axios
 				.post(`${process.env.REACT_APP_API}/users/login`, this.state)
@@ -18,7 +18,7 @@ class Login extends React.Component {
 					if (data.data.error !== undefined) {
 						this.setState(data.data)
 					} else {
-						localStorage.setItem('key', data.data)
+						localStorage.setItem('token', data.data)
 						this.setState({ redirect: true })
 					}
 				})
@@ -39,7 +39,7 @@ class Login extends React.Component {
 		return (
 			<>
 				<Route
-					path="/"
+					path="/login"
 					render={() => (this.state.redirect ? <Redirect to="/" /> : null)}
 				/>
 				<form className="card" onSubmit={this.login}>

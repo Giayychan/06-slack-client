@@ -15,7 +15,7 @@ class Signup extends React.Component {
 			this.state.email === '' ||
 			this.state.password === ''
 		) {
-			this.setState({ error: 'Please put Full Name,Email and Password!' })
+			this.setState({ error: 'All fields are required' })
 		} else {
 			axios
 				.post(`${process.env.REACT_APP_API}/users/signup`, this.state)
@@ -23,7 +23,7 @@ class Signup extends React.Component {
 					if (data.data.error === 'Email already exists') {
 						this.setState(data.data)
 					} else {
-						localStorage.setItem('key', data.data)
+						localStorage.setItem('token', data.data)
 						this.setState({ redirect: true })
 					}
 				})

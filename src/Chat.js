@@ -4,12 +4,19 @@ import Sidebar from './Sidebar'
 import Messages from './Messages'
 
 class Chat extends Component {
+	state = {
+		selectedId: ''
+	}
+
+	selected = id => {
+		this.setState({ selectedId: id })
+	}
 	// Render
 	render() {
 		return (
 			<div id="wrap">
-				<Sidebar />
-				<Messages />
+				<Sidebar selected={this.selected} />
+				<Messages selected={this.state.selectedId} />
 			</div>
 		)
 	}
