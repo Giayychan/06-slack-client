@@ -17,19 +17,16 @@ class Content extends Component {
 	}
 	// Lifecycle
 	componentWillReceiveProps = (props) => {
-		if (props.selected)
-			axios
-				.get(
-					`${process.env.REACT_APP_API}/messages?channel=${props.selected}`,
-					{
-						headers: {
-							Authorization: `Bearer ${localStorage.getItem('token')}`,
-						},
-					}
-				)
-				.then((res) => {
-					this.setState({ messages: res.data, selectedId: props.selected })
-				})
+		// if (props.selected)
+		axios
+			.get(`${process.env.REACT_APP_API}/messages?channel=${props.selected}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			})
+			.then((res) => {
+				this.setState({ messages: res.data, selectedId: props.selected })
+			})
 	}
 	// Methods
 	changeText = (e) => {
