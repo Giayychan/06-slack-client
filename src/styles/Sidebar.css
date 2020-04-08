@@ -2,6 +2,7 @@
 	background: #4a1548;
 	color: #c2b7c5;
 	padding: 20px;
+	min-width: 200px;
 }
 #sidebar h2 {
 	padding: 5px;

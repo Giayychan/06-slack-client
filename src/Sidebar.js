@@ -9,31 +9,31 @@ class Sidebar extends Component {
 	state = {
 		workspace: 'Tortuga Coders',
 		channels: [],
-		ogchannels: []
 	}
 	// Lifecycle
 	componentWillMount() {
 		axios
 			.get(`${process.env.REACT_APP_API}/channels`, {
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`
-				}
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
 			})
-			.then(res => {
+			.then((res) => {
 				res.data[0].active = true
 				this.setState({ channels: res.data })
+				this.selectChannel(res.data[0]._id)
 			})
 	}
 	// Methods
-	logout = e => {
+	logout = (e) => {
 		e.preventDefault()
 		localStorage.removeItem('key')
 		this.props.history.push('/login')
 	}
 
-	selectChannel = e => {
+	selectChannel = (e) => {
 		let channelsArr = this.state.channels
-		channelsArr.map(channel => {
+		channelsArr.map((channel) => {
 			if (channel._id === e) {
 				channel.active = true
 				this.props.selected(e)
@@ -47,10 +47,10 @@ class Sidebar extends Component {
 	render() {
 		return (
 			<>
-				<div id="sidebar">
+				<div id='sidebar'>
 					<h2>{this.state.workspace}</h2>
-					<ul className="list-unstyled">
-						{this.state.channels.map(channel => {
+					<ul className='list-unstyled'>
+						{this.state.channels.map((channel) => {
 							return (
 								<li
 									key={channel._id}
