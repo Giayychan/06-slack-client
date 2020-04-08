@@ -36,9 +36,9 @@ class Sidebar extends Component {
 		channelsArr.map((channel) => {
 			if (channel._id === e) {
 				channel.active = true
-				this.props.selected(e)
+				return this.props.selected(e)
 			} else {
-				channel.active = false
+				return (channel.active = false)
 			}
 		})
 		this.setState({ channels: channelsArr })

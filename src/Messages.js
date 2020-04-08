@@ -17,16 +17,20 @@ class Content extends Component {
 	}
 	// Lifecycle
 	componentWillReceiveProps = (props) => {
-		// if (props.selected)
-		axios
-			.get(`${process.env.REACT_APP_API}/messages?channel=${props.selected}`, {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-			})
-			.then((res) => {
-				this.setState({ messages: res.data, selectedId: props.selected })
-			})
+		if (props.selected)
+			axios
+				.get(
+					`${process.env.REACT_APP_API}/messages?channel=${props.selected}`,
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem('token')}`,
+						},
+					}
+				)
+				.then((res) => {
+					this.setState({ messages: res.data, selectedId: props.selected })
+					console.log('axios', res.data)
+				})
 	}
 	// Methods
 	changeText = (e) => {
@@ -57,9 +61,14 @@ class Content extends Component {
 				let messages = this.state.messages
 				messages.push(res.data)
 				this.setState({ messages })
+				console.log('axiosgetmessages', this.state.messages)
 				let newMessage = this.state.newMessage
+				newMessage.text = ''
+				newMessage.file = null
 				this.setState({ newMessage })
+				console.log('axiosgetmessages', this.state.newMessage)
 			})
+			.catch((err) => console.log(err))
 	}
 
 	addFile = (e) => {
