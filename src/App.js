@@ -7,14 +7,21 @@ import './styles/App.css'
 
 class App extends Component {
 	// Methods
+	checkToken = () => {
+		return localStorage.getItem('token') ? true : false
+	}
 	// Render
 	render() {
 		return (
 			<BrowserRouter>
 				<Switch>
-					<Route path="/login" component={Login} />
-					<Route path="/signup" component={Signup} />
-					<Route path="/" component={Chat} />
+					<Route path='/login' component={Login} />
+					<Route path='/signup' component={Signup} />
+					<Route
+						render={() =>
+							this.checkToken ? <Chat /> : <Redirect to='/login' />
+						}
+					/>
 				</Switch>
 			</BrowserRouter>
 		)
